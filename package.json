@@ -10,8 +10,8 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^29.0.0",
     "@ckeditor/ckeditor5-react": "^3.0.2",
     "strapi": "3.6.5",
     "strapi-admin": "3.6.5",
@@ -29,7 +29,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "1badd866-33cf-49fa-8856-35222b4da608"
+    "uuid": "6380369d-02cb-4e47-950f-9dfde15f4d00"
   },
   "engines": {
     "node": ">=10.16.0 <=14.x.x",

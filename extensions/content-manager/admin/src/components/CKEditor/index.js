@@ -1,9 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import CKEditor from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "./ckeditor";
-import styled from "styled-components";
-import { auth } from "strapi-helper-plugin";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   .ck-editor__main {
@@ -14,25 +13,38 @@ const Wrapper = styled.div`
   }
 `;
 
-const Editor = ({ onChange, name, value }) => {
-  const jwtToken = auth.getToken();
+const configuration = {
+  toolbar: [
+    'heading',
+    '|',
+    'bold',
+    'italic',
+    'link',
+    'bulletedList',
+    'numberedList',
+    '|',
+    'indent',
+    'outdent',
+    '|',
+    'blockQuote',
+    'insertTable',
+    'mediaEmbed',
+    'undo',
+    'redo',
+  ],
+};
 
+const Editor = ({ onChange, name, value }) => {
   return (
     <Wrapper>
       <CKEditor
         editor={ClassicEditor}
+        config={configuration}
         data={value}
+        onReady={editor => editor.setData(value)}
         onChange={(event, editor) => {
           const data = editor.getData();
           onChange({ target: { name, value: data } });
-        }}
-        config={{
-          simpleUpload: {
-            uploadUrl: `${strapi.backendURL}/upload`,
-            headers: {
-              Authorization: "Bearer " + jwtToken,
-            },
-          },
         }}
       />
     </Wrapper>
@@ -42,7 +54,7 @@ const Editor = ({ onChange, name, value }) => {
 Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
 };
 
 export default Editor;
